@@ -1,7 +1,7 @@
 #!/bin/bash
 
 API="http://localhost:4741"
-URL_PATH="/examples"
+URL_PATH="/listitems"
 
 curl "${API}${URL_PATH}/${ID}" \
   --include \
@@ -9,8 +9,11 @@ curl "${API}${URL_PATH}/${ID}" \
   --header "Content-Type: application/json" \
   --header "Authorization: Token token=${TOKEN}" \
   --data '{
-    "example": {
-      "text": "'"${TEXT}"'"
+    "listitem": {
+      "name": "'"${NAME}"'",
+      "location": "'"${LOCATION}"'",
+      "category": "'"${CATEGORY}"'",
+      "rating": "'"${RATING}"'"
     }
   }'
 
