@@ -9,7 +9,12 @@ const setUser = require('./concerns/set-current-user')
 const setModel = require('./concerns/set-mongoose-model')
 
 const index = (req, res, next) => {
-  Listitem.find()
+  // const listitem = Object.assign(req.body.listitem, {
+  //   _owner: req.user._id
+  // })
+  // console.log('listitem is in index =', listitem)
+  console.log('req.user_id index =', req.user._id)
+  Listitem.find({'_owner': req.user._id})
     .then(listitems => res.json({
       listitems: listitems.map((e) =>
         e.toJSON({ virtuals: true, user: req.user }))
@@ -27,6 +32,7 @@ const create = (req, res, next) => {
   const listitem = Object.assign(req.body.listitem, {
     _owner: req.user._id
   })
+  console.log('req.user_id =', req.user._id)
   Listitem.create(listitem)
     .then(listitem =>
       res.status(201)
