@@ -22,6 +22,9 @@ const index = (req, response, next) => {
       })
       .then(response => {
         console.log(response.jsonBody.businesses)
+        // response.json({
+        //   yelpresult: req.yelpresult.toJSON({ virtuals: true, user: req.user })
+        // })
       })
       .catch(e => {
         console.log(e)
