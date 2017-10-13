@@ -10,21 +10,24 @@ const setModel = require('./concerns/set-mongoose-model')
 
 const yelp = require('yelp-fusion')
 
-const index = (req, response, next) => {
+const index = (req, res, next) => {
   const clientId = process.env.CLIENT_ID
   const clientSecret = process.env.CLIENT_SECRET
   yelp.accessToken(clientId, clientSecret)
-    .then(response => {
-      const client = yelp.client(response.jsonBody.access_token)
+    .then(result => {
+      const client = yelp.client(result.jsonBody.access_token)
+
       client.search({
         term: 'Coffee',
         location: 'boston, ma'
       })
-      .then(response => {
-        console.log(response.jsonBody.businesses)
-        // response.json({
-        //   yelpresult: req.yelpresult.toJSON({ virtuals: true, user: req.user })
-        // })
+      .then(result => {
+        console.log('----', result.jsonBody.businesses)
+        // console.log('--req is ', req)
+        const yelpresults = result.jsonBody.businesses
+        res.json({
+          yelpresults: yelpresults
+        })
       })
       .catch(e => {
         console.log(e)
