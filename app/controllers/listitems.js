@@ -14,17 +14,34 @@ const index = (req, res, next) => {
   // })
   // console.log('listitem is in index =', listitem)
   console.log('req.user_id index =', req.user._id)
-  Listitem.find({'_owner': req.user._id})
-    .then(listitems => res.json({
-      listitems: listitems.map((e) =>
-        e.toJSON({ virtuals: true, user: req.user }))
-    }))
+  Listitem.find({
+    '_owner': req.user._id
+  })
+    .then(listitems => {
+      console.log('listitems is', listitems)
+      console.log('map is =====', listitems.map((e) =>
+        e.toJSON({
+          virtuals: true,
+          user: req.user
+        })))
+
+      res.json({
+        listitems: listitems.map((e) =>
+          e.toJSON({
+            virtuals: true,
+            user: req.user
+          }))
+      })
+    })
     .catch(next)
 }
 
 const show = (req, res) => {
   res.json({
-    listitem: req.listitem.toJSON({ virtuals: true, user: req.user })
+    listitem: req.listitem.toJSON({
+      virtuals: true,
+      user: req.user
+    })
   })
 }
 
@@ -36,14 +53,18 @@ const create = (req, res, next) => {
   Listitem.create(listitem)
     .then(listitem =>
       res.status(201)
-        .json({
-          listitem: listitem.toJSON({ virtuals: true, user: req.user })
-        }))
+      .json({
+        listitem: listitem.toJSON({
+          virtuals: true,
+          user: req.user
+        })
+      }))
     .catch(next)
 }
 
 const update = (req, res, next) => {
-  delete req.body.listitem._owner  // disallow owner reassignment.
+  delete req.body.listitem._owner // disallow owner reassignment.
+  console.log('req.listitem =', req.listitem)
   req.listitem.update(req.body.listitem)
     .then(() => res.sendStatus(204))
     .catch(next)
@@ -61,9 +82,24 @@ module.exports = controller({
   create,
   update,
   destroy
-}, { before: [
-  { method: setUser, only: ['index', 'show'] },
-  { method: authenticate, except: ['index', 'show'] },
-  { method: setModel(Listitem), only: ['show'] },
-  { method: setModel(Listitem, { forUser: true }), only: ['update', 'destroy'] }
-] })
+}, {
+  before: [{
+      method: setUser,
+      only: ['index', 'show']
+    },
+    {
+      method: authenticate,
+      except: ['index', 'show']
+    },
+    {
+      method: setModel(Listitem),
+      only: ['show']
+    },
+    {
+      method: setModel(Listitem, {
+        forUser: true
+      }),
+      only: ['update', 'destroy']
+    }
+  ]
+})
