@@ -2,7 +2,7 @@
 
 Have you ever wanted to have a special place to store your wildest dreams!? Good news, you came to the right place! Our app is specifically designed to allow users to personalize their page by allowing them to store bucket list items and rank them. The first step for new users is to create a personal profile by making a username and password. Once the user is authorized, they are then able to start adding their bucket list items! To add a bucket list item, users will need to fill out the appropriate fields on the page including (name, location, category and rating). Once the form is submitted, the user is then greeted by seeing their new list item displayed on the page. If a user wishes to delete or update an existing bucket list item, they can do that by clicking the appropriate buttons next to the item. Bucket list items are specific to the the authorized user, so only authorized users can see their specific list items. HAPPY BUCKET LISTING!
 
-## Link to Backend-Api Repo: https://github.com/Squadrilateral/bucketlist-api
+## Link to Frontend Repo: https://github.com/Squadrilateral/bucketlist-front-end
 ## Link to Frontend Deployed Site: https://squadrilateral.github.io/bucketlist-front-end/
 
 ## Planning
