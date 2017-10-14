@@ -13,10 +13,6 @@ const yelp = require('yelp-fusion')
 const index = (req, res, next) => {
   const clientId = process.env.CLIENT_ID
   const clientSecret = process.env.CLIENT_SECRET
-  // yelp.get('/', function (request, response) {
-  //   response.send('test')
-  // })
-
   yelp.accessToken(clientId, clientSecret)
     .then(result => {
       const client = yelp.client(result.jsonBody.access_token)
