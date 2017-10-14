@@ -13,10 +13,8 @@ const yelp = require('yelp-fusion')
 const index = (req, res, next) => {
   const clientId = process.env.CLIENT_ID
   const clientSecret = process.env.CLIENT_SECRET
-  console.log('-----yelp index req is', req.query)
   // yelp.get('/', function (request, response) {
   //   response.send('test')
-  //   console.log('--index request is', request)
   // })
 
   yelp.accessToken(clientId, clientSecret)
@@ -28,7 +26,6 @@ const index = (req, res, next) => {
         location: req.query.location
       })
       .then(result => {
-        // console.log('--req is ', req)
         const yelpresults = result.jsonBody.businesses
         res.json({
           yelpresults: yelpresults
