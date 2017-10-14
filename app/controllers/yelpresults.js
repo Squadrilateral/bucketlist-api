@@ -28,20 +28,15 @@ const index = (req, res, next) => {
         location: req.query.location
       })
       .then(result => {
-        console.log('----', result.jsonBody.businesses)
         // console.log('--req is ', req)
         const yelpresults = result.jsonBody.businesses
         res.json({
           yelpresults: yelpresults
         })
       })
-      .catch(e => {
-        console.log(e)
-      })
+      .catch(() => res.sendStatus(400))
     })
-    .catch(e => {
-      console.log(e)
-    })
+    .catch(() => res.sendStatus(400))
 }
 
 const show = (req, res) => {
