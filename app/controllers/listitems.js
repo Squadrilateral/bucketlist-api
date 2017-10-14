@@ -12,15 +12,12 @@ const index = (req, res, next) => {
   // const listitem = Object.assign(req.body.listitem, {
   //   _owner: req.user._id
   // })
+  // console.log('listitem is in index =', listitem)
+  console.log('req.user_id index =', req.user._id)
   Listitem.find({
     '_owner': req.user._id
   })
     .then(listitems => {
-        e.toJSON({
-          virtuals: true,
-          user: req.user
-        })))
-
       res.json({
         listitems: listitems.map((e) =>
           e.toJSON({
