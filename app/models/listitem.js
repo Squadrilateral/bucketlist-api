@@ -10,6 +10,7 @@ const listitemSchema = new mongoose.Schema({
   location: String,
   category: String,
   rating: Number,
+  status: String,
   _owner: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
