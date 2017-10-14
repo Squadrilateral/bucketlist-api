@@ -9,11 +9,6 @@ const setUser = require('./concerns/set-current-user')
 const setModel = require('./concerns/set-mongoose-model')
 
 const index = (req, res, next) => {
-  // const listitem = Object.assign(req.body.listitem, {
-  //   _owner: req.user._id
-  // })
-  // console.log('listitem is in index =', listitem)
-  console.log('req.user_id index =', req.user._id)
   Listitem.find({
     '_owner': req.user._id
   })
@@ -75,22 +70,22 @@ module.exports = controller({
   destroy
 }, {
   before: [{
-      method: setUser,
-      only: ['index', 'show']
-    },
-    {
-      method: authenticate,
-      except: ['index', 'show']
-    },
-    {
-      method: setModel(Listitem),
-      only: ['show']
-    },
-    {
-      method: setModel(Listitem, {
-        forUser: true
-      }),
-      only: ['update', 'destroy']
-    }
+    method: setUser,
+    only: ['index', 'show']
+  },
+  {
+    method: authenticate,
+    except: ['index', 'show']
+  },
+  {
+    method: setModel(Listitem),
+    only: ['show']
+  },
+  {
+    method: setModel(Listitem, {
+      forUser: true
+    }),
+    only: ['update', 'destroy']
+  }
   ]
 })

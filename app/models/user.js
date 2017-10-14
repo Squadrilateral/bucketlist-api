@@ -20,7 +20,6 @@ const userSchema = new mongoose.Schema({
   toJSON: {
     virtuals: true,
     transform: function (doc, pojoUser) {
-      // remove sensitive data from every user document
       delete pojoUser.token
       delete pojoUser.passwordDigest
       return pojoUser
